@@ -1,11 +1,13 @@
 FROM maven:latest
 
-LABEL authors="Toni"
-
-COPY ./src /usr/src/myapp
-
 WORKDIR /usr/src/myapp
 
-RUN javac App.java
+# Copy POM file and download dependencies
+COPY pom.xml .
+COPY src ./src
 
-CMD ["java", "App", "target/app.jar"]
+# Build the application
+RUN mvn clean package
+
+# Run the application
+CMD ["java", "-jar", "target/app.jar"]
