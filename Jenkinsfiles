@@ -4,6 +4,10 @@ pipeline {
     environment {
         SONARQUBE_SERVER = 'SonarQubeServer'
         SONAR_TOKEN = 'sqa_39941cd1a716bfa0d138ef4bc053f7b62aec2d7a' // Store the token securely
+        DOCKER_CREDENTIALS = credentials('dockerhub-credentials') // Docker Hub credentials
+        DOCKER_IMAGE = 'myapp'
+        DOCKER_TAG = "${env.BUILD_ID}"
+
 }
 stages {
     stage('Checkout') {
@@ -31,5 +35,12 @@ stages {
             }
         }
     }
+    stage('docker build') {
+        steps {
+            script {
+                def image = docker.build("myapp:${env.BUILD_ID}")
+                image.push()
+            }
+        }
     }
 }
