@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         SONARQUBE_SERVER = 'SonarQubeServer'
-        SONAR_TOKEN = sqa_39941cd1a716bfa0d138ef4bc053f7b62aec2d7a // Store the token securely
+        SONAR_TOKEN = 'sqa_39941cd1a716bfa0d138ef4bc053f7b62aec2d7a' // Store the token securely
 }
 stages {
     stage('Checkout') {
