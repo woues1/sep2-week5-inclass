@@ -5,6 +5,8 @@ pipeline {
         SONARQUBE_SERVER = 'SonarQubeServer'
         SONAR_TOKEN = 'sqa_39941cd1a716bfa0d138ef4bc053f7b62aec2d7a' // Store the token securely
         DOCKER_CREDENTIALS_ID = 'Docker_Hub'
+        DOCKERHUB_REPO='tonihirv/myapp'
+        DOCKER_IMAGE_TAG='latest'
 }
 stages {
     stage('Checkout') {
@@ -32,10 +34,10 @@ stages {
             }
         }
     }
-    stage('build docker image') {
+    stage('push docker image to docker hub') {
         steps {
             script {
-                def image = docker.build("myapp:${env.BUILD_ID}")
+                def image = docker.build(${DOCKERHUB_REPO} + ':' + ${DOCKER_IMAGE_TAG})
                 image.push()
             }
         }
