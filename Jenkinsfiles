@@ -37,7 +37,7 @@ stages {
     stage('push docker image to docker hub') {
         steps {
             script {
-                def image = docker.build(${DOCKERHUB_REPO} + ':' + ${DOCKER_IMAGE_TAG})
+                def image = docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
                 image.push()
             }
         }
