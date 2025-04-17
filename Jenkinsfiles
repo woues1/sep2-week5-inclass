@@ -45,11 +45,11 @@ stages {
                 stage('Push Docker Image to Docker Hub') {
                     steps {
                         // Push Docker image to Docker Hub
-                        bat """
-
-                        docker login -u ${env.DOCKERHUB_CREDENTIALS_ID} -p ${env.DOCKERHUB_PASSWORD}
-                        echo "${env.DOCKERHUB_CREDENTIALS_ID}"
-                        """
+                        script {
+                            docker.withRegistry(env.DOCKERHUB_CREDENTIALS_ID) {
+                                docker.image("${env.DOCKERHUB_REPO}:${env.DOCKER_IMAGE_TAG}").push()
+                            }
+                        }
                     }
                 }
 
