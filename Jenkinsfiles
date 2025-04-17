@@ -38,7 +38,7 @@ stages {
                     steps {
                         // Build Docker image
                         script {
-                            docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                            docker.build("${env.DOCKERHUB_REPO}:${env.DOCKER_IMAGE_TAG}")
                         }
                     }
                 }
@@ -46,8 +46,8 @@ stages {
                     steps {
                         // Push Docker image to Docker Hub
                         script {
-                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
-                                docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
+                            docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
+                                docker.image("${env.DOCKERHUB_REPO}:${env.DOCKER_IMAGE_TAG}").push()
                             }
                         }
                     }
