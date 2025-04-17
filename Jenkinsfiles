@@ -32,12 +32,4 @@ stages {
             }
         }
     }
-    stage('docker build') {
-        steps {
-            script {
-                def image = docker.build("myapp:${env.BUILD_ID}")
-                image.push()
-            }
-        }
-    }
 }
